@@ -10,3 +10,8 @@ credentials*.json
 client_secret*.json
 token*.json
 *.pem
+
+# Python build/test artifacts
+__pycache__/
+*.egg-info/
+.pytest_cache/

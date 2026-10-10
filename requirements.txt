@@ -1,0 +1,6 @@
+# Install with: .venv/bin/pip install -r requirements.txt
+# Installs this project (src/enron_pipeline) in editable mode plus its dependencies.
+-e .
+
+# Testing
+pytest==8.3.5

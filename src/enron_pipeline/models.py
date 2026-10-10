@@ -41,7 +41,7 @@ class ParsedEmail:
     # so later stages never treat that copy as the earliest original.
     date_is_sentinel: bool = False
 
-    # Optional fields (spec section 3.2); filled in Stage 2.
+    # Optional fields (spec section 3.2).
     cc_addresses: list[str] = field(default_factory=list)
     bcc_addresses: list[str] = field(default_factory=list)
     x_from: str | None = None
@@ -55,6 +55,11 @@ class ParsedEmail:
     forwarded_content: str | None = None
     quoted_content: str | None = None
     headings: str | None = None
+
+    # Diagnostics (not spec fields): which marker split the body, and whether an SMTP header
+    # block that leaked into the body was removed.
+    split_marker: str | None = None
+    leaked_headers_stripped: bool = False
 
     warnings: list[ParseWarning] = field(default_factory=list)
 

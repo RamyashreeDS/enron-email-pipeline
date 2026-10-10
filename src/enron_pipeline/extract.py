@@ -122,7 +122,7 @@ def run(root: str | Path, mailboxes: list[str] | None = None, limit: int | None 
             if jsonl:
                 d = email.to_dict()
                 d["warnings"] = [f"{w['code']}: {w['detail']}" for w in d["warnings"]]
-                jsonl.write(json.dumps(d, ensure_ascii=False) + "\n")
+                jsonl.write(json.dumps(d) + "\n")  # ASCII-escaped: no raw U+0085/U+2028 line breaks
     finally:
         error_log.close()
         warning_log.close()

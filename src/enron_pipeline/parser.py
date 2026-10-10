@@ -1,14 +1,17 @@
-"""Parse one raw email file into a ParsedEmail (Stage 1: mandatory fields)."""
+"""Parse one raw email file into a ParsedEmail."""
 from __future__ import annotations
 
 from pathlib import Path
 
 from .addresses import parse_address_list
-from .body import decode_body
+from .attachments import has_attachment
+from .body import decode_body, strip_leaked_headers
 from .dates import parse_date
 from .headers import Headers
+from .headings import extract_headings
 from .models import ParsedEmail, ParseError, ParseWarning
 from .rawfile import split_raw
+from .segments import split_body
 
 
 def _short(value: str | None, limit: int = 120) -> str:
@@ -69,8 +72,20 @@ def parse_bytes(raw: bytes, source_file: str) -> ParsedEmail:
             detail += " | also: " + ", ".join(c for c, _ in problems[1:])
         raise ParseError(code, detail)
 
-    body, body_warnings = decode_body(rf.body, h.get("Content-Transfer-Encoding"), rf.encoding)
+    decoded, body_warnings = decode_body(rf.body, h.get("Content-Transfer-Encoding"), rf.encoding)
     warnings.extend(body_warnings)
+    decoded, leaked, leaked_ct = strip_leaked_headers(decoded)
+    seg = split_body(decoded, subject)
+
+    cc = parse_address_list(h.get("Cc"))
+    bcc = parse_address_list(h.get("Bcc"))
+    for name, lst in (("Cc", cc), ("Bcc", bcc)):
+        if lst.rejected:
+            warnings.append(ParseWarning("ADDRESS_REJECTED", f"{name} items dropped: {lst.rejected}"))
+
+    content_type = h.get_optional("Content-Type")
+    media_type = content_type.split(";", 1)[0].strip().lower() or None if content_type else None
+    headings = extract_headings("\n\n".join(t for t in (seg.body, seg.forwarded_content) if t))
 
     return ParsedEmail(
         message_id=message_id,
@@ -78,9 +93,24 @@ def parse_bytes(raw: bytes, source_file: str) -> ParsedEmail:
         from_address=from_list.valid[0],
         to_addresses=to_list.valid,
         subject=subject,
-        body=body,
+        body=seg.body,
         source_file=source_file,
         date_is_sentinel=date_result.is_sentinel,
+        cc_addresses=cc.valid,
+        bcc_addresses=bcc.valid,
+        x_from=h.get_optional("X-From"),
+        x_to=h.get_optional("X-To"),
+        x_cc=h.get_optional("X-cc"),
+        x_bcc=h.get_optional("X-bcc"),
+        x_folder=h.get_optional("X-Folder"),
+        x_origin=h.get_optional("X-Origin"),
+        content_type=media_type,
+        has_attachment=has_attachment(content_type, leaked_ct, decoded),
+        forwarded_content=seg.forwarded_content,
+        quoted_content=seg.quoted_content,
+        headings="\n".join(headings) or None,
+        split_marker=seg.marker,
+        leaked_headers_stripped=leaked,
         warnings=warnings,
     )
 

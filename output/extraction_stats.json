@@ -1,0 +1,83 @@
+{
+  "files_found": 34222,
+  "parsed": 32805,
+  "failed": 1417,
+  "success_rate_pct": 95.86,
+  "runtime_seconds": 11.03,
+  "counts_consistent": true,
+  "failures_by_reason": {
+    "MISSING_TO": 1415,
+    "INVALID_FROM": 2
+  },
+  "per_mailbox": {
+    "farmer-d": {
+      "found": 13032,
+      "parsed": 12862,
+      "failed": 170
+    },
+    "kitchen-l": {
+      "found": 5546,
+      "parsed": 5304,
+      "failed": 242
+    },
+    "lay-k": {
+      "found": 5937,
+      "parsed": 5600,
+      "failed": 337
+    },
+    "lokay-m": {
+      "found": 5568,
+      "parsed": 5295,
+      "failed": 273
+    },
+    "skilling-j": {
+      "found": 4139,
+      "parsed": 3744,
+      "failed": 395
+    }
+  },
+  "field_completeness_pct": {
+    "message_id": 100.0,
+    "date": 100.0,
+    "from_address": 100.0,
+    "to_addresses": 100.0,
+    "subject": 97.79,
+    "body": 94.53,
+    "source_file": 100.0,
+    "cc_addresses": 27.55,
+    "bcc_addresses": 27.55,
+    "x_from": 100.0,
+    "x_to": 100.0,
+    "x_cc": 27.66,
+    "x_bcc": 0.06,
+    "x_folder": 100.0,
+    "x_origin": 100.0,
+    "content_type": 100.0,
+    "has_attachment": 12.66,
+    "forwarded_content": 16.6,
+    "quoted_content": 20.24,
+    "headings": 6.62
+  },
+  "sentinel_dates": 17,
+  "data_quality": {
+    "bcc_present": 9037,
+    "bcc_identical_to_cc": 9037,
+    "empty_primary_body": 1794,
+    "leaked_headers_stripped": 15
+  },
+  "split_markers": {
+    "(none)": 20674,
+    "lotus_header": 4081,
+    "original_message": 3854,
+    "forward": 3743,
+    "inline_quote": 267,
+    "fully_quoted": 72,
+    "outlook_header": 46,
+    "wrote": 42,
+    "embedded_message": 26
+  },
+  "warnings_by_code": {
+    "DATE_SENTINEL": 17,
+    "ADDRESS_REJECTED": 14
+  }
+}

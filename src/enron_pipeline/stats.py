@@ -7,10 +7,15 @@ from dataclasses import dataclass, field
 
 from .models import ParsedEmail
 
-# Fields whose completeness is reported. Stage 2 adds the optional fields here.
-COMPLETENESS_FIELDS = (
+MANDATORY_FIELDS = (
     "message_id", "date", "from_address", "to_addresses", "subject", "body", "source_file",
 )
+OPTIONAL_FIELDS = (
+    "cc_addresses", "bcc_addresses", "x_from", "x_to", "x_cc", "x_bcc", "x_folder", "x_origin",
+    "content_type", "has_attachment", "forwarded_content", "quoted_content", "headings",
+)
+# Fields whose completeness is reported. For booleans, "filled" means True.
+COMPLETENESS_FIELDS = MANDATORY_FIELDS + OPTIONAL_FIELDS
 
 
 def _mailbox_of(source_file: str) -> str:
@@ -21,6 +26,8 @@ def _mailbox_of(source_file: str) -> str:
 def _filled(value) -> bool:
     if value is None:
         return False
+    if isinstance(value, bool):
+        return value
     if isinstance(value, (str, list)):
         return len(value) > 0
     return True
@@ -36,6 +43,8 @@ class ExtractionStats:
     warnings_by_code: Counter = field(default_factory=Counter)
     filled: Counter = field(default_factory=Counter)
     sentinel_dates: int = 0
+    quality: Counter = field(default_factory=Counter)  # data-quality counters
+    split_markers: Counter = field(default_factory=Counter)
     per_mailbox: dict[str, Counter] = field(default_factory=dict)
 
     def _mb(self, source_file: str) -> Counter:
@@ -53,6 +62,15 @@ class ExtractionStats:
                 self.filled[name] += 1
         if email.date_is_sentinel:
             self.sentinel_dates += 1
+        if email.bcc_addresses:
+            self.quality["bcc_present"] += 1
+            if email.bcc_addresses == email.cc_addresses:
+                self.quality["bcc_identical_to_cc"] += 1
+        if not email.body:
+            self.quality["empty_primary_body"] += 1
+        if email.leaked_headers_stripped:
+            self.quality["leaked_headers_stripped"] += 1
+        self.split_markers[email.split_marker or "(none)"] += 1
 
     def record_failure(self, source_file: str, code: str) -> None:
         self.failed += 1
@@ -81,6 +99,8 @@ class ExtractionStats:
             "per_mailbox": {mb: dict(c) for mb, c in sorted(self.per_mailbox.items())},
             "field_completeness_pct": {k: round(v, 2) for k, v in self.completeness().items()},
             "sentinel_dates": self.sentinel_dates,
+            "data_quality": dict(self.quality.most_common()),
+            "split_markers": dict(self.split_markers.most_common()),
             "warnings_by_code": dict(self.warnings_by_code.most_common()),
         }
 
@@ -104,8 +124,16 @@ class ExtractionStats:
         out += ["", "Per mailbox:              found   parsed   failed"]
         for mb, c in sorted(self.per_mailbox.items()):
             out.append(f"  {mb:<20}{c['found']:>9,}{c['parsed']:>9,}{c['failed']:>9,}")
-        out += ["", "Field completeness (% of parsed records with a non-empty value):"]
-        out += [f"  {name:<20}{pct:>7.2f}%" for name, pct in self.completeness().items()]
-        out += ["", f"Sentinel (1980-01-01 UTC) dates: {self.sentinel_dates:,}", "", "Warnings by type:"]
+        comp = self.completeness()
+        out += ["", "Field completeness (% of parsed records with a non-empty value; booleans: % true):",
+                "  mandatory:"]
+        out += [f"    {name:<20}{comp[name]:>7.2f}%" for name in MANDATORY_FIELDS]
+        out += ["  optional:"]
+        out += [f"    {name:<20}{comp[name]:>7.2f}%" for name in OPTIONAL_FIELDS]
+        out += ["", f"Sentinel (1980-01-01 UTC) dates: {self.sentinel_dates:,}", "", "Data quality:"]
+        out += [f"  {k:<26}{n:>8,}" for k, n in self.quality.most_common()] or ["  (none)"]
+        out += ["", "Body split by marker type:"]
+        out += [f"  {k:<26}{n:>8,}" for k, n in self.split_markers.most_common()]
+        out += ["", "Warnings by type:"]
         out += [f"  {code:<20}{n:>8,}" for code, n in self.warnings_by_code.most_common()] or ["  (none)"]
         return "\n".join(out)

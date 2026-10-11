@@ -2,5 +2,8 @@
 # Installs this project (src/enron_pipeline) in editable mode plus its dependencies.
 -e .
 
+# Fuzzy matching for duplicate detection (Task 3, MIT licence)
+rapidfuzz==3.14.6
+
 # Testing
 pytest==8.3.5

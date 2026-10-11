@@ -1,0 +1,55 @@
+{
+  "groups": 7356,
+  "emails_flagged": 14896,
+  "average_group_size": 3.03,
+  "by_category": {
+    "same_timestamp": {
+      "description": "every copy has the same timestamp (one email filed in several folders)",
+      "groups": 6852,
+      "emails_flagged": 13371,
+      "average_group_size": 2.95
+    },
+    "different_timestamps": {
+      "description": "copies have different timestamps (likely real re-sends)",
+      "groups": 504,
+      "emails_flagged": 1525,
+      "average_group_size": 4.03
+    }
+  },
+  "group_size_distribution": {
+    "2": 1519,
+    "3": 4567,
+    "4": 1113,
+    "5": 39,
+    "6": 87,
+    "7": 4,
+    "8": 11,
+    "9": 6,
+    "10": 2,
+    "12": 3,
+    "13": 1,
+    "15": 1,
+    "17": 1,
+    "33": 1,
+    "40": 1
+  },
+  "similarity": {
+    "exact_100": 14506,
+    "90_to_99.9": 390,
+    "minimum": 90.0
+  },
+  "rules": {
+    "groups_using_forwarded_content_rule": 417,
+    "groups_using_quoted_content_rule": 33,
+    "groups_matched_on_completely_empty_text": 1,
+    "groups_with_sentinel_dates": 7,
+    "groups_spanning_mailboxes": 175
+  },
+  "emails_scanned": 32805,
+  "buckets": 15661,
+  "candidate_buckets": 7268,
+  "comparisons": 37055,
+  "runtime_seconds": 1.6,
+  "report_rows": 14896,
+  "database_flagged": 14896
+}

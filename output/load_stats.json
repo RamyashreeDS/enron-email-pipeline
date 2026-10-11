@@ -1,0 +1,26 @@
+{
+  "inserted": 32805,
+  "skipped_already_in_db": 0,
+  "skipped_duplicate_message_id_in_run": 0,
+  "db_errors": 0,
+  "addresses_created": 14815,
+  "recipient_rows_created": {
+    "to": 255832,
+    "cc": 36498,
+    "bcc": 36498
+  },
+  "runtime_seconds": 16.0,
+  "database_totals": {
+    "emails": 32805,
+    "addresses": 14815,
+    "recipient_rows": 328828,
+    "recipient_rows_bcc": 36498,
+    "recipient_rows_cc": 36498,
+    "recipient_rows_to": 255832
+  },
+  "database_checks": {
+    "integrity_check": "ok",
+    "foreign_key_violations": 0,
+    "schema_version": 1
+  }
+}

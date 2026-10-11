@@ -98,3 +98,97 @@
   recommendations for each decision.
 - It explained tables, keys, normalization, indexes and transactions, and
   listed 8 decisions (T1-T8) with pros and cons. Still to decide.
+
+## Step 9-10: Task 2 (database)
+- Asked Claude Code to plan the database in plan mode, explain it simply
+  as if I'm new to databases, and give me options for each decision.
+- Decisions T1-T8: sender as a text column (matches the spec's
+  from_address), integer id plus unique message_id, skip existing
+  message_ids on rerun (safe for notification history), readable UTC
+  text dates, only date_is_sentinel added beyond the spec.
+- Load: 32,805 emails, 328,828 recipient rows, 0 errors, ~16-19 s.
+  Second run: 0 inserted, 32,805 skipped, reported as one count.
+- Checks: SQLite integrity and foreign-key checks pass; 200-email round
+  trip from the database matched the parser with 0 mismatches.
+- Consequence of T1: addresses table has 14,815 (recipients only), since
+  2,327 addresses only appear as senders.
+
+## Step 11-12: Task 3 (duplicate detection)
+- Claude Code measured the data before planning: 7,238 candidate groups;
+  in 5,429 (75%), all copies share the same timestamp, meaning one email
+  stored in several folders, not re-sends.
+- Caught a number that didn't make sense: Claude Code wrote "74,900 out
+  of 7,238 candidate groups". I asked; it gave the correct figure, 5,429
+  of 7,238, with a breakdown that adds up. But it also claimed it had
+  never written 74,900, even though the number was visible on screen in
+  its own message. Lesson: verify against what's actually on screen,
+  not against the AI's account of its own output.
+- Biggest decision (X1): following the spec literally flags ~14,900
+  emails, but ~93% of groups are folder copies; merging copies first
+  would flag only ~700. I chose to follow the spec literally but be
+  transparent: the stats split groups into folder copies vs likely
+  re-sends, and the README explains it.
+- Other decisions: lowest id breaks ties, empty bodies compare the
+  forwarded part instead, sentinel-dated copies can't be the original,
+  compare to the group's original, rapidfuzz with whitespace collapsed.
+- Before building, Claude Code tested rapidfuzz itself: two empty strings
+  score 100, so it checked how often "nothing vs nothing" could happen.
+- DEBUGGING STORY 5: 2 tests failed at first because of the test code:
+  sqlite3.Row objects don't compare equal to plain tuples. Fixed.
+- Claude Code found 2 false re-sends caused by my empty-body rule (empty
+  replies to different messages matched as "" vs ""), and asked me
+  instead of changing the rule. I extended the rule: if body and
+  forwarded part are both empty, compare the quoted part. Fixed both,
+  kept the 33 correct folder-copy groups.
+- Final: 7,356 groups, 14,896 flagged, ~1.5 s (vs ~4.5 min with difflib).
+- Known limit: template emails ("Deal # 361155 has been created" vs
+  "Deal # 362921") are 95.5% alike but are different deals.
+
+## Step 13-15: Google Cloud and MCP setup (manual steps)
+- Created a Google Cloud project, enabled the Gmail API, configured the
+  OAuth consent screen (External, Testing), added my Gmail as the only
+  test user, created a Desktop-app OAuth client, allowed only the
+  gmail.send scope, moved the client file to ~/.gmail-mcp/ (locked to
+  my user), installed Node.js, signed in once (send-only), created .env
+  with my address, and registered the server in Claude Code (local scope).
+- Claude Code compared 4 MCP servers by checking each project's code and
+  registry: GongRzhe's original is archived and needs broad mailbox
+  access; google_workspace_mcp's tool isn't named send_email. Chose the
+  maintained ArtyMcLabin fork, pinned at 1.2.3, send-only permission.
+- Found a contradiction in the spec: Task 4 says one notice per group
+  (7,356); the deliverables table says drafts for all flagged
+  duplicates (14,896). Chose per group; will document it.
+- MCP ISSUE 1: `claude mcp add` with --env before the server name failed
+  ("Invalid environment variable format: gmail"); --env takes several
+  values and swallowed the name. Claude Code recognized its own mistake
+  and fixed the command.
+- MCP ISSUE 2: `claude mcp get gmail` said "No MCP server named gmail"
+  because the corrected add hadn't been run yet. After running it:
+  Connected.
+- FIRST MCP SEND, my prompt: "Use the gmail MCP send_email tool to send
+  one test email to the address in NOTIFY_RECIPIENT_OVERRIDE in my .env
+  file. Subject: '[MCP test] Enron pipeline'. Body: one line saying this
+  is a setup test for my duplicate notification pipeline. Don't send to
+  any other address." Result: "Email sent successfully with ID:
+  1a1298c7c0b1b4da". It arrived; screenshot saved.
+
+## Step 16-17: Task 4 build, parser fix, live send
+- Dry run: 7,356 drafts in output/replies.zip (5.2 MB) plus 25 samples;
+  every draft checked against the database and the template.
+- Claude Code caught its own problems: a selection bug (the first live
+  candidate had the 1980 sentinel date), a wrong claim in its own notes
+  (one group does mix sentinel and real dates), and an MCP SDK API
+  change it checked in the installed version instead of trusting memory.
+- Found a Task 1 parser gap: 21 subjects still MIME-encoded (RFC 2047).
+  DECISION: fix the parser at the source and rebuild everything, before
+  any live send so no notification history was lost. All totals stayed
+  the same; only the 21 subject texts changed. 270 tests pass.
+- DECISION: commit a masked send log (r***@gmail.com) so the deliverable
+  is complete but my address stays off GitHub.
+- LIVE SEND: python -m enron_pipeline.notify --send-live --max-sends 5.
+  Sent: 5, Failed: 0. All 5 [Duplicate Notice] emails arrived, each
+  starting with "[Test delivery: intended for ...]". Database marks
+  exactly those 5; a rerun would skip them.
+- Claude Code caught a .gitignore problem: the .env.* pattern also
+  excluded .env.example. Fixed with an exception.
+- Screenshots: inbox, one full notice, and Show original (References:).

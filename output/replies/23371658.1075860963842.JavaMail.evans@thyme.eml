@@ -1,0 +1,26 @@
+To: admin.enron@enron.com
+Subject:
+ [Duplicate Notice] Re: An Inbound Message For You Has Been Quarantined
+Date: Sun, 11 Oct 2026 06:17:19 +0000
+References: <23371658.1075860963842.JavaMail.evans@thyme>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+This is an automated notification from the Email Deduplication System.
+
+Your email has been identified as a potential duplicate:
+
+Your Email (Flagged):
+Message-ID: <23371658.1075860963842.JavaMail.evans@thyme>
+Date Sent: 2002-03-15 01:26:58 UTC
+Subject: An Inbound Message For You Has Been Quarantined
+
+Original Email on Record:
+Message-ID: <23502850.1075860959152.JavaMail.evans@thyme>
+Date Sent: 2002-01-24 17:01:47 UTC
+Similarity Score: 92.3%
+
+If this was NOT a duplicate and you intended to send this email,
+please reply with CONFIRM to restore it to active status.
+No action is required if this is indeed a duplicate.

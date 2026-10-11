@@ -32,7 +32,7 @@ Command: `python -m enron_pipeline.dedupe --db data/enron.db`.
 | X1 | **Folder copies count as duplicates**, as the spec defines them. The stats are split into two categories: **same timestamp** (every copy in the group has the same date: one email filed in several Lotus folders) and **different timestamps** (likely real re-sends). Each category reports its groups and flagged emails. | Follows the definition literally. Most flags in this dataset are folder copies (the plan estimated about 95%), and the split makes that visible for the README instead of hiding it. |
 | X2 | **Ties are broken by the lowest database id**: among copies with the same date, the lowest `emails.id` comes first (the original) and the highest comes last (the notification target). | Simple and deterministic. Ids follow load order, which is the sorted file path. |
 | X3 | **Compare bodies; if both bodies are empty, compare `forwarded_content` instead. Extension: if both forwarded parts are empty too, compare `quoted_content`.** | The spec compares body content, and that is kept for normal emails. Two empty bodies would otherwise always be 100% alike, which merged different forwards (15 buckets in the plan's measurement). The extension was added after the first run: with only the forwarded fallback, two replies with no text of their own compared "" with "" and matched at 100%, which created 2 false re-sends (see "Results"). |
-| X4 | **A sentinel-dated copy (1980-01-01, `date_is_sentinel = 1`) is never the original.** Real-dated copies come first; sentinel copies come after them. A group of only sentinel copies uses the X2 tie-break. | The 1980 date is Lotus Notes' "unknown date", not a real early date. In this data no group mixes sentinel and real dates, so the rule protects against future data. |
+| X4 | **A sentinel-dated copy (1980-01-01, `date_is_sentinel = 1`) is never the original.** Real-dated copies come first; sentinel copies come after them. A group of only sentinel copies uses the X2 tie-break. | The 1980 date is Lotus Notes' "unknown date", not a real early date. In this data, 1 group mixes sentinel and real dates (see the consequences below); the rule makes its real-dated copy the original. |
 | X5 | **Each email is compared with the group's original**, not with every member and not in a chain. | Every flagged email is then at least 90% like its original, and the report's `similarity_score` has one clear meaning: duplicate vs original. |
 | X6 | **`rapidfuzz` `fuzz.ratio`** (MIT licence, v3.14.6), after **collapsing whitespace** (every run of spaces, tabs and newlines becomes one space; case is kept). | A recognized, fast library. `fuzz.ratio` is a normalized edit-based similarity from 0 to 100. Collapsing whitespace stops copies that Lotus and Outlook wrapped differently from looking different. |
 | X7 | **The subject is matched exactly after removing leading `Re:` / `Fw:` / `Fwd:` prefixes** (any number of them, any case, including forms like `RE[2]:`). Empty subjects are treated like any other subject. | Literal: the spec only asks to normalize the prefixes, so "Q4 Plan" and "Q4 plan" stay different subjects. |
@@ -50,10 +50,20 @@ Command: `python -m enron_pipeline.dedupe --db data/enron.db`.
   different things (e.g. robert.cotten's "Deal # 361155 has been created…" vs "Deal #
   362921…", 95.5% in the plan's measurement). That is a limit of the spec's definition.
 - **Sentinel order (X4):** because sentinel copies sort after real-dated ones, a sentinel
-  copy in a mixed group would be the "latest" and so the notification target. No such
-  group exists in this data.
+  copy in a mixed group is the "latest" and so the notification target. This happens in
+  **1 group**: tori.wells "Re: Update from cousins in Missouri" (original 2000-06-13
+  16:45:00, two folder copies at the same time, and a 97.8% similar copy dated
+  1980-01-01). *Correction:* an earlier version of these notes said no such group exists.
+  That came from a planning measurement that only looked for identical text; this copy
+  matches by fuzzy similarity. Task 4 orders sentinel targets last when choosing the
+  "most recent" groups to send.
 
 ## Results (final run, 32,805 emails)
+
+These results were confirmed after the database was rebuilt for parse decision D10 (RFC 2047
+subjects decoded). The 14,896 duplicate pairs and their similarity scores are identical
+before and after; only the `subject` column of 9 report rows changed, from encoded to
+decoded text.
 
 | | Groups | Emails flagged | Avg group size |
 |---|--:|--:|--:|

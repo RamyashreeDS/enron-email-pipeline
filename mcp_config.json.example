@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "gmail": {
+      "command": "npx",
+      "args": ["-y", "@artymclabin/gmail-mcp@1.2.3"],
+      "env": {
+        "GMAIL_OAUTH_PATH": "${HOME}/.gmail-mcp/gcp-oauth.keys.json",
+        "GMAIL_CREDENTIALS_PATH": "${HOME}/.gmail-mcp/credentials.json"
+      }
+    }
+  }
+}

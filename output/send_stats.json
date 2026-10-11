@@ -1,0 +1,46 @@
+{
+  "mode": "live",
+  "max_sends": 5,
+  "selected": 5,
+  "skipped_already_notified": 0,
+  "sent": 5,
+  "failed": 0,
+  "unconfirmed": 0,
+  "results": [
+    {
+      "duplicate_message_id": "<15839506.1075860954472.JavaMail.evans@thyme>",
+      "status": "sent",
+      "gmail_message_id": "1a1299fcb7b649f5",
+      "error": "",
+      "notification_date": "2026-10-11 06:21:40"
+    },
+    {
+      "duplicate_message_id": "<5475776.1075860956010.JavaMail.evans@thyme>",
+      "status": "sent",
+      "gmail_message_id": "1a1299fcc850e82f",
+      "error": "",
+      "notification_date": "2026-10-11 06:21:41"
+    },
+    {
+      "duplicate_message_id": "<23371658.1075860963842.JavaMail.evans@thyme>",
+      "status": "sent",
+      "gmail_message_id": "1a1299fcf4613b7c",
+      "error": "",
+      "notification_date": "2026-10-11 06:21:42"
+    },
+    {
+      "duplicate_message_id": "<19691112.1075860955703.JavaMail.evans@thyme>",
+      "status": "sent",
+      "gmail_message_id": "1a1299fd31a02712",
+      "error": "",
+      "notification_date": "2026-10-11 06:21:43"
+    },
+    {
+      "duplicate_message_id": "<33450125.1075860985605.JavaMail.evans@thyme>",
+      "status": "sent",
+      "gmail_message_id": "1a1299fd76184db4",
+      "error": "",
+      "notification_date": "2026-10-11 06:21:44"
+    }
+  ]
+}

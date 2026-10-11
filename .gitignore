@@ -5,9 +5,11 @@ docs/
 # Credentials
 .env
 .env.*
+!.env.example
 mcp_config.json
 credentials*.json
 client_secret*.json
+gcp-oauth.keys.json
 token*.json
 *.pem
 

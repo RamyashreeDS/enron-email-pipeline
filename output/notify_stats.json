@@ -1,0 +1,16 @@
+{
+  "mode": "dry_run",
+  "generated_at": "2026-10-11 06:17:19",
+  "groups": 7356,
+  "drafts_written": 7356,
+  "draft_errors": [],
+  "groups_by_category": {
+    "same_timestamp": 6852,
+    "different_timestamps": 504
+  },
+  "zip_path": "output/replies.zip",
+  "zip_bytes": 5196896,
+  "samples_written": 25,
+  "samples_dir": "output/replies",
+  "already_notified_groups": 0
+}

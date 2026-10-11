@@ -17,3 +17,6 @@ token*.json
 __pycache__/
 *.egg-info/
 .pytest_cache/
+
+# macOS folder metadata
+.DS_Store

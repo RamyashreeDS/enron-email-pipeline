@@ -192,3 +192,26 @@
 - Claude Code caught a .gitignore problem: the .env.* pattern also
   excluded .env.example. Fixed with an exception.
 - Screenshots: inbox, one full notice, and Show original (References:).
+
+## Step 18: main.py and fresh-clone test
+- Asked Claude Code to build main.py and test it as a reviewer would:
+  fresh clone, new venv, install, run, tests.
+- Results: setup ~4 s; without data it stops with download instructions;
+  full pipeline 21 s with the same numbers; rerun safe; 276 tests pass.
+- The fresh-clone test found 8 setup problems for the README, e.g. macOS's
+  built-in Python 3.9 gives a misleading pip error; installs fail outside
+  the repo root; a fresh clone's empty database would let --send-live
+  resend the same 5 notices.
+
+## Step 19: README
+- Claude Code drafted the README from the notes and checked every
+  documented command exists and every number comes from the notes. It
+  corrected its own wording about Louise Kitchen to match the evidence.
+- I reviewed it and asked for two additions: CLAUDE.md in the layout
+  table, and a "What I'd do with more time" section.
+- I accidentally sent a prompt with a leftover placeholder ("[paste the
+  items you chose]"). Claude Code noticed and refused to invent the
+  items itself, since they're my own judgment in an evaluated document.
+  I chose: detect folder copies explicitly, catch template emails, learn
+  heading detection from labelled examples, handle CONFIRM replies,
+  scale up to all 150 mailboxes.

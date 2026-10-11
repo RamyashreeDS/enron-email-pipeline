@@ -83,7 +83,7 @@ below comes from a problem hit during that test.
 ### Steps
 ```bash
 # 1. Get the code and move into it. Run every command below from this folder.
-git clone <repository-url> enron-pipeline
+git clone https://github.com/RamyashreeDS/enron-email-pipeline.git enron-pipeline
 cd enron-pipeline
 
 # 2. Create a virtual environment with Python 3.10+ and install the requirements

@@ -62,7 +62,7 @@ def parse_bytes(raw: bytes, source_file: str) -> ParsedEmail:
     if to_list.rejected and to_list.valid:
         warnings.append(ParseWarning("ADDRESS_REJECTED", f"To items dropped: {to_list.rejected}"))
 
-    subject = h.get("Subject")
+    subject = h.get_text("Subject")
     if subject is None:
         problems.append(("MISSING_SUBJECT", "No Subject header"))
 
@@ -98,12 +98,12 @@ def parse_bytes(raw: bytes, source_file: str) -> ParsedEmail:
         date_is_sentinel=date_result.is_sentinel,
         cc_addresses=cc.valid,
         bcc_addresses=bcc.valid,
-        x_from=h.get_optional("X-From"),
-        x_to=h.get_optional("X-To"),
-        x_cc=h.get_optional("X-cc"),
-        x_bcc=h.get_optional("X-bcc"),
-        x_folder=h.get_optional("X-Folder"),
-        x_origin=h.get_optional("X-Origin"),
+        x_from=h.get_text_optional("X-From"),
+        x_to=h.get_text_optional("X-To"),
+        x_cc=h.get_text_optional("X-cc"),
+        x_bcc=h.get_text_optional("X-bcc"),
+        x_folder=h.get_text_optional("X-Folder"),
+        x_origin=h.get_text_optional("X-Origin"),
         content_type=media_type,
         has_attachment=has_attachment(content_type, leaked_ct, decoded),
         forwarded_content=seg.forwarded_content,

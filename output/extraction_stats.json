@@ -3,7 +3,7 @@
   "parsed": 32805,
   "failed": 1417,
   "success_rate_pct": 95.86,
-  "runtime_seconds": 16.0,
+  "runtime_seconds": 16.82,
   "counts_consistent": true,
   "failures_by_reason": {
     "MISSING_TO": 1415,

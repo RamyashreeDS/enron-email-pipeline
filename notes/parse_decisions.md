@@ -14,7 +14,9 @@ data (34,222 files across lay-k, skilling-j, kitchen-l, farmer-d, lokay-m). Guid
 | D5 | An empty primary `body` is accepted as `""` (a pure forward or quote). | 1,794 records. **Task 3 note:** compare body + forwarded_content, or empty bodies would look like duplicates. |
 | — | `message_id` keeps its angle brackets (`<…@thyme>`), as needed for the `References:` header in Task 4. | All Message-IDs are unique per file. The same email in two folders has **different** IDs, so the unique constraint won't catch folder copies; Task 3's fuzzy match will. |
 
-Final run: 34,222 found, 32,805 parsed (95.86%), 1,417 failed; parsed + failed = found.
+Final run: 34,222 found, 32,805 parsed (95.86%), 1,417 failed (1,415 `MISSING_TO`, 2
+`INVALID_FROM`); parsed + failed = found. These counts were confirmed again after the D10
+rebuild.
 
 ## Dates
 
@@ -22,6 +24,32 @@ Final run: 34,222 found, 32,805 parsed (95.86%), 1,417 failed; parsed + failed =
 |---|---|
 | — | All dates are normalized to UTC. Numeric offsets win; US abbreviations (PST, EDT, ...) are handled by the stdlib, and others (CET, BST, JST, ...) by a small table. No timezone → assume UTC and log `DATE_NO_TIMEZONE`. |
 | D3 | The Lotus Notes null date `Mon, 31 Dec 1979 16:00:00 -0800` (= 1980-01-01 00:00 UTC) is kept as parsed, logged as `DATE_SENTINEL`, and flagged with the extra boolean **`date_is_sentinel`** so Task 3 never picks such a copy as the original. 17 emails. |
+
+## Encoded header text
+
+| # | Decision |
+|---|---|
+| D10 | **RFC 2047 encoded words in text headers are decoded at parse time** (`Subject`, `X-From`, `X-To`, `X-cc`, `X-bcc`, `X-Folder`, `X-Origin`). **Control characters in the decoded text become `?`** (tab is kept). Address headers are not decoded, because a decoded display name such as "Lay, Kenneth" could contain a comma that would split the list. |
+
+- **How it was found:** Task 4's draft check found subjects still stored as
+  `=?ANSI_X3.4-1968?Q?Cuiab=3F_-_Brazil_-_New_Phone_Number?=`. When the drafts were built,
+  Python's email library decoded them anyway, and in 4 drafts a raw `\x01` (where the
+  original had a curly apostrophe or dash) landed in the `Subject:` header.
+- **Effect:** 21 subjects (0.06%) are now stored decoded, e.g. "Cuiab? - Brazil - New
+  Phone Number" and "New Employee Service ?) Turbo Tax". All are in charset
+  `ANSI_X3.4-1968` (plain ASCII); no X- header was encoded. After the fix, no subject is
+  still encoded and none contains a control character.
+- **Rebuild:** the database was rebuilt and Tasks 2–4 rerun from scratch. Every count
+  stayed the same:
+  - parsed / failed / addresses / recipient rows
+  - duplicate groups, the duplicate pairs themselves, and the similarity scores
+  - drafts
+  
+  What changed: the 21 subject texts, the `subject` column of 9 rows in
+  `duplicates_report.csv`, and 4 notice subjects (plus 4 body `Subject:` lines) among the
+  drafts.
+- Regression tests: `tests/test_headers.py`, including the real fixture
+  `farmer-d__all_documents__3604.txt`.
 
 ## Addresses
 

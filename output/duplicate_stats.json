@@ -49,7 +49,7 @@
   "buckets": 15661,
   "candidate_buckets": 7268,
   "comparisons": 37055,
-  "runtime_seconds": 1.6,
+  "runtime_seconds": 1.3,
   "report_rows": 14896,
   "database_flagged": 14896
 }

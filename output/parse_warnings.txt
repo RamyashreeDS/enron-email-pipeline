@@ -1,32 +1,32 @@
 # timestamp_utc	source_file	reason	detail
-2026-10-11T04:22:16Z	maildir/farmer-d/all_documents/482.	ADDRESS_REJECTED	To items dropped: ['<"cc:.skerik"@enron.com>']
-2026-10-11T04:22:16Z	maildir/farmer-d/all_documents/2157.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:18Z	maildir/farmer-d/discussion_threads/874.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:18Z	maildir/farmer-d/discussion_threads/2435.	ADDRESS_REJECTED	To items dropped: ['<"cc:.skerik"@enron.com>']
-2026-10-11T04:22:20Z	maildir/farmer-d/tufco/425.	ADDRESS_REJECTED	To items dropped: ['<"cc:.skerik"@enron.com>']
-2026-10-11T04:22:22Z	maildir/kitchen-l/_americas/mrha/ooc/243.	ADDRESS_REJECTED	To items dropped: ['e-mail <dave.>']
-2026-10-11T04:22:22Z	maildir/kitchen-l/_americas/turbines/3.	ADDRESS_REJECTED	Cc items dropped: ['<"staffan.andersson%abb_se01%abb_notes%abb_ch01%abb_abbzh%abb_ch01"@ch.abb.com@enron.com>', '<"michael.sandridge%abb_ustra%abb_abbzh%abb_ch01"@ch.abb.com@enron.com>']
-2026-10-11T04:22:22Z	maildir/kitchen-l/_americas/turbines/3.	ADDRESS_REJECTED	Bcc items dropped: ['<"staffan.andersson%abb_se01%abb_notes%abb_ch01%abb_abbzh%abb_ch01"@ch.abb.com@enron.com>', '<"michael.sandridge%abb_ustra%abb_abbzh%abb_ch01"@ch.abb.com@enron.com>']
-2026-10-11T04:22:23Z	maildir/lay-k/all_documents/21.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:23Z	maildir/lay-k/all_documents/45.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:23Z	maildir/lay-k/all_documents/86.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:23Z	maildir/lay-k/all_documents/119.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:24Z	maildir/lay-k/all_documents/1088.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:24Z	maildir/lay-k/discussion_threads/16.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:24Z	maildir/lay-k/discussion_threads/36.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:24Z	maildir/lay-k/discussion_threads/49.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:25Z	maildir/lay-k/inbox/111.	ADDRESS_REJECTED	To items dropped: ['office <bailey>']
-2026-10-11T04:22:25Z	maildir/lay-k/inbox/573.	ADDRESS_REJECTED	Cc items dropped: ['<"barbara"@mailman.enron.com@enron.com>']
-2026-10-11T04:22:25Z	maildir/lay-k/inbox/573.	ADDRESS_REJECTED	Bcc items dropped: ['<"barbara"@mailman.enron.com@enron.com>']
-2026-10-11T04:22:25Z	maildir/lay-k/inbox/577.	ADDRESS_REJECTED	Cc items dropped: ['<rosalee."jessica"@mailman.enron.com@enron.com>']
-2026-10-11T04:22:25Z	maildir/lay-k/inbox/577.	ADDRESS_REJECTED	Bcc items dropped: ['<rosalee."jessica"@mailman.enron.com@enron.com>']
-2026-10-11T04:22:25Z	maildir/lay-k/inbox/1741.	ADDRESS_REJECTED	Cc items dropped: ['<belinda".<??s"breen@enron.com>']
-2026-10-11T04:22:25Z	maildir/lay-k/inbox/1741.	ADDRESS_REJECTED	Bcc items dropped: ['<belinda".<??s"breen@enron.com>']
-2026-10-11T04:22:27Z	maildir/lokay-m/all_documents/2240.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:29Z	maildir/skilling-j/all_documents/449.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:29Z	maildir/skilling-j/all_documents/1321.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:29Z	maildir/skilling-j/all_documents/1340.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:29Z	maildir/skilling-j/all_documents/1348.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:30Z	maildir/skilling-j/discussion_threads/367.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:30Z	maildir/skilling-j/discussion_threads/1089.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
-2026-10-11T04:22:31Z	maildir/skilling-j/sent_items/106.	ADDRESS_REJECTED	To items dropped: ['<\'"kristina_mourdaunt@enron.net"@enron.com>']
+2026-10-11T06:17:01Z	maildir/farmer-d/all_documents/482.	ADDRESS_REJECTED	To items dropped: ['<"cc:.skerik"@enron.com>']
+2026-10-11T06:17:02Z	maildir/farmer-d/all_documents/2157.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:03Z	maildir/farmer-d/discussion_threads/874.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:04Z	maildir/farmer-d/discussion_threads/2435.	ADDRESS_REJECTED	To items dropped: ['<"cc:.skerik"@enron.com>']
+2026-10-11T06:17:06Z	maildir/farmer-d/tufco/425.	ADDRESS_REJECTED	To items dropped: ['<"cc:.skerik"@enron.com>']
+2026-10-11T06:17:07Z	maildir/kitchen-l/_americas/mrha/ooc/243.	ADDRESS_REJECTED	To items dropped: ['e-mail <dave.>']
+2026-10-11T06:17:08Z	maildir/kitchen-l/_americas/turbines/3.	ADDRESS_REJECTED	Cc items dropped: ['<"staffan.andersson%abb_se01%abb_notes%abb_ch01%abb_abbzh%abb_ch01"@ch.abb.com@enron.com>', '<"michael.sandridge%abb_ustra%abb_abbzh%abb_ch01"@ch.abb.com@enron.com>']
+2026-10-11T06:17:08Z	maildir/kitchen-l/_americas/turbines/3.	ADDRESS_REJECTED	Bcc items dropped: ['<"staffan.andersson%abb_se01%abb_notes%abb_ch01%abb_abbzh%abb_ch01"@ch.abb.com@enron.com>', '<"michael.sandridge%abb_ustra%abb_abbzh%abb_ch01"@ch.abb.com@enron.com>']
+2026-10-11T06:17:09Z	maildir/lay-k/all_documents/21.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:09Z	maildir/lay-k/all_documents/45.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:09Z	maildir/lay-k/all_documents/86.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:09Z	maildir/lay-k/all_documents/119.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:09Z	maildir/lay-k/all_documents/1088.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:10Z	maildir/lay-k/discussion_threads/16.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:10Z	maildir/lay-k/discussion_threads/36.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:10Z	maildir/lay-k/discussion_threads/49.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:10Z	maildir/lay-k/inbox/111.	ADDRESS_REJECTED	To items dropped: ['office <bailey>']
+2026-10-11T06:17:11Z	maildir/lay-k/inbox/573.	ADDRESS_REJECTED	Cc items dropped: ['<"barbara"@mailman.enron.com@enron.com>']
+2026-10-11T06:17:11Z	maildir/lay-k/inbox/573.	ADDRESS_REJECTED	Bcc items dropped: ['<"barbara"@mailman.enron.com@enron.com>']
+2026-10-11T06:17:11Z	maildir/lay-k/inbox/577.	ADDRESS_REJECTED	Cc items dropped: ['<rosalee."jessica"@mailman.enron.com@enron.com>']
+2026-10-11T06:17:11Z	maildir/lay-k/inbox/577.	ADDRESS_REJECTED	Bcc items dropped: ['<rosalee."jessica"@mailman.enron.com@enron.com>']
+2026-10-11T06:17:11Z	maildir/lay-k/inbox/1741.	ADDRESS_REJECTED	Cc items dropped: ['<belinda".<??s"breen@enron.com>']
+2026-10-11T06:17:11Z	maildir/lay-k/inbox/1741.	ADDRESS_REJECTED	Bcc items dropped: ['<belinda".<??s"breen@enron.com>']
+2026-10-11T06:17:12Z	maildir/lokay-m/all_documents/2240.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:15Z	maildir/skilling-j/all_documents/449.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:15Z	maildir/skilling-j/all_documents/1321.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:15Z	maildir/skilling-j/all_documents/1340.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:15Z	maildir/skilling-j/all_documents/1348.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:16Z	maildir/skilling-j/discussion_threads/367.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:16Z	maildir/skilling-j/discussion_threads/1089.	DATE_SENTINEL	Lotus Notes null date 'Mon, 31 Dec 1979 16:00:00 -0800 (PST)'
+2026-10-11T06:17:17Z	maildir/skilling-j/sent_items/106.	ADDRESS_REJECTED	To items dropped: ['<\'"kristina_mourdaunt@enron.net"@enron.com>']

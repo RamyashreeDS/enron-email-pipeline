@@ -84,8 +84,10 @@ ORDER BY CASE r.recipient_type WHEN 'to' THEN 1 WHEN 'cc' THEN 2 ELSE 3 END, r.p
 
 -- 6. Data-quality overview
 -- Expected: 32805 emails, 4153 with attachments, 17 sentinel dates (the Lotus Notes null
--- date, stored as 1980-01-01 00:00:00), 0 duplicates and 0 notifications until Tasks 3 and 4
--- run, 724 empty subjects and 1794 empty primary bodies (pure forwards).
+-- date, stored as 1980-01-01 00:00:00), 724 empty subjects and 1794 empty primary bodies
+-- (pure forwards). flagged_duplicates is 0 right after loading and 14896 after Task 3
+-- (python -m enron_pipeline.dedupe); notifications_sent is 0 until a live Task 4 run, then
+-- the number of notices sent.
 SELECT count(*)                  AS emails,
        sum(has_attachment)       AS with_attachment,
        sum(date_is_sentinel)     AS sentinel_dates,

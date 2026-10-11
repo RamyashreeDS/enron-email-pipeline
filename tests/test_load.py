@@ -36,14 +36,14 @@ def error_lines(tmp_path):
 
 def test_first_load(tmp_path, maildir):
     stats, ls = run(tmp_path, maildir)
-    assert stats.found == 14 and stats.parsed == 11  # 3 fixtures are designed to fail parsing
-    assert ls.inserted == 11 and ls.handled == 11
+    assert stats.found == 15 and stats.parsed == 12  # 3 fixtures are designed to fail parsing
+    assert ls.inserted == 12 and ls.handled == 12
     assert ls.already_in_db == ls.duplicate_in_run == ls.db_errors == 0
-    assert ls.database["emails"] == 11
+    assert ls.database["emails"] == 12
     assert ls.checks == {"integrity_check": "ok", "foreign_key_violations": 0, "schema_version": 1}
     assert len(error_lines(tmp_path)) == 3  # parse failures only
     saved = json.loads((tmp_path / "out" / "load.json").read_text())
-    assert saved["inserted"] == 11
+    assert saved["inserted"] == 12
 
 
 def test_second_run_skips_everything_and_reports_a_count(tmp_path, maildir):
@@ -55,10 +55,10 @@ def test_second_run_skips_everything_and_reports_a_count(tmp_path, maildir):
     conn.close()
 
     stats, ls = run(tmp_path, maildir)
-    assert ls.inserted == 0 and ls.already_in_db == 11 and ls.handled == stats.parsed
+    assert ls.inserted == 0 and ls.already_in_db == 12 and ls.handled == stats.parsed
     assert ls.addresses_created == 0 and sum(ls.recipient_rows.values()) == 0
     assert ls.database == before
-    # Skips are a count, not 11 log lines: the log holds only the 3 parse failures.
+    # Skips are a count, not 12 log lines: the log holds only the 3 parse failures.
     assert len(error_lines(tmp_path)) == 3
     assert not any("DUPLICATE_MESSAGE_ID" in l for l in error_lines(tmp_path))
     # Task 4 state survives the rerun.
@@ -71,7 +71,7 @@ def test_duplicate_message_id_within_one_run_is_logged(tmp_path, maildir):
     copy = maildir / "skilling-j" / "notes_inbox" / "9999."
     shutil.copy(src, copy)
     stats, ls = run(tmp_path, maildir)
-    assert ls.inserted == 11 and ls.duplicate_in_run == 1 and ls.handled == stats.parsed
+    assert ls.inserted == 12 and ls.duplicate_in_run == 1 and ls.handled == stats.parsed
     dup = [l for l in error_lines(tmp_path) if "\tDUPLICATE_MESSAGE_ID\t" in l]
     assert len(dup) == 1 and "maildir/skilling-j/notes_inbox/9999." in dup[0]
     assert "kept that copy" in dup[0]
@@ -80,8 +80,8 @@ def test_duplicate_message_id_within_one_run_is_logged(tmp_path, maildir):
 def test_new_files_on_rerun_are_added(tmp_path, maildir):
     run(tmp_path, maildir, mailboxes=["skilling-j"])
     stats, ls = run(tmp_path, maildir)
-    # 8 skilling-j fixtures, 2 of which fail parsing: 6 loaded first, the other 5 added now.
-    assert ls.already_in_db == 6 and ls.inserted == 5
+    # 8 skilling-j fixtures, 2 of which fail parsing: 6 loaded first, the other 6 added now.
+    assert ls.already_in_db == 6 and ls.inserted == 6
 
 
 def test_round_trip_matches_parser(tmp_path, maildir):
@@ -114,10 +114,10 @@ def test_db_error_on_one_email_does_not_stop_the_load(tmp_path, maildir, monkeyp
 
     monkeypatch.setattr(db, "insert_email", flaky)
     stats, ls = run(tmp_path, maildir)
-    assert ls.db_errors == 1 and ls.inserted == 10 and ls.handled == stats.parsed
+    assert ls.db_errors == 1 and ls.inserted == 11 and ls.handled == stats.parsed
     assert any("\tDB_ERROR\tRuntimeError: simulated failure" in l for l in error_lines(tmp_path))
 
 
 def test_small_batches_commit_correctly(tmp_path, maildir):
     _, ls = run(tmp_path, maildir, batch_size=2)
-    assert ls.database["emails"] == 11 and ls.checks["integrity_check"] == "ok"
+    assert ls.database["emails"] == 12 and ls.checks["integrity_check"] == "ok"

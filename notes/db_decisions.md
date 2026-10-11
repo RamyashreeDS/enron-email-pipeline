@@ -6,6 +6,9 @@ literally and document the consequences.
 
 ## Design summary
 
+Counts below are from the load after parse decision D10 (see `notes/parse_decisions.md`).
+The database was rebuilt from scratch for it, and every count stayed the same.
+
 Three tables:
 
 | Table | One row per | Rows |

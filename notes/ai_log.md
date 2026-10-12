@@ -89,7 +89,7 @@
   assignment defines quoted_content as "lines beginning with >", and I'm
   following the spec's wording consistently. Affects 267 emails; the body
   is the same either way.
-- Committed as e5e192f. Claude Code also wrote notes/parse_decisions.md
+- Committed as d58d9f6. Claude Code also wrote notes/parse_decisions.md
   listing every decision with its effect on the data.
 
 ## Step 9: Task 2 plan (in progress)
